@@ -1,32 +1,32 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Header></Header>
+    <Search></Search>
+    <Nav></Nav>
+    <router-link to="/product">toPage</router-link>
+    <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
+<script>
+  // import {getUserInfo} from '@/api/index'
+  import Header from '@/components/Header'
+  import Search from '@/components/Search'
+  import Nav from '@/components/Nav'
+  import axios from 'axios'
+
+  import Footer from '@/components/Footer'
+  import {getRequest} from "@/api/request";
+  export default {
+    name:'app',
+    components:{
+      Header,Search,Nav,Footer
+    },
+
+  }
+
+</script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

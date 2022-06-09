@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import {getRequest} from '@/api/request'
+Vue.prototype.getRequest=getRequest
 
 Vue.config.productionTip = false
 
