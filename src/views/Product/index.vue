@@ -154,7 +154,7 @@
                     <div class="gline_goodBox">
                         <div class="gLine_good">
                             <img src="./img/goodsOne/gLine_g_1.png" alt="">
-                            <div class="mti_into">立即购买</div>
+                            <div class="mti_into" @click="buy">立即购买</div>
                             <div class="gLine_g_bottom">
                                 <div class="goodsItems_price">
                                     <div class="gI_price_msg" id="gI_price_title">折后价</div>
@@ -490,7 +490,12 @@
 
 <script>
     export default {
-        name: "index"
+        name: "index",
+        methods:{
+            buy(){
+                this.$router.push('/details')
+            }
+        }
     }
 </script>
 

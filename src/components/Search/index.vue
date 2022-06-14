@@ -1,13 +1,13 @@
 <template>
     <div class="logoAndInput">
-        <div class="logo">
-            <img src="./img/logo.png">
+        <div class="logo"  >
+            <img src="./img/logo.png" @click="toHome" />
         </div>
         <span class="minLogo"></span>
 
         <div class="input">
-            <input type="text" class="search" placeholder="女式T恤" autofocus>
-            <button class="input_btn iconfont icon-icon-test"></button>
+            <input type="text" class="search" placeholder="女式T恤" autofocus/>
+            <button class="input_btn iconfont icon-icon-test" @click="toProducts"></button>
             <div class="input_down">
                 <a href="#">
                     女式T恤
@@ -39,7 +39,7 @@
 
 
         <div class="shopping">
-            <span class="iconfont icon-24gl-bag bag">
+            <span class="iconfont icon-24gl-bag bag" @click="toCars">
                 <i>购物车</i>
                 <span class="dot">0</span>
             </span>
@@ -49,7 +49,18 @@
 
 <script>
     export default {
-        name: "search-index"
+        name: "search-index",
+        methods:{
+            toProducts(){
+                this.$router.push('/product')
+            },
+            toHome(){
+                this.$router.push('/')
+            },
+            toCars(){
+                this.$router.push('/cars')
+            }
+        }
     }
 </script>
 
@@ -65,18 +76,25 @@
         position: absolute;
         width: 160px;
         left: 200px;
+        /*border: 1px solid black;*/
+    }
+    .logoAndInput .logo img:hover{
+        cursor: pointer;
+
     }
     .logoAndInput .logo img{
         height: 100px;
     }
     .logoAndInput .minLogo{
+
+        /*border: 1px solid black;*/
         position: absolute;
         display: inline-block;
         height: 100px;
         width: 605px;
-        background: url(./img/logoSide.jpg) 50% 50% no-repeat;
+        background: url(./img/logoSide.jpg) 11% 50% no-repeat;
         background-size: 50%;
-        left: 230px;
+        left: 361px;
     }
     .logoAndInput .input{
         position: absolute;

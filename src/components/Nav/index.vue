@@ -132,7 +132,7 @@
         }
         100%{
             opacity: 1;
-            height: 400px;
+            height: 411px;
             visibility: visible !important;
 
         }
@@ -141,6 +141,7 @@
         position: absolute;
         top: 42px;
         left: 0;
+        border-top: 1px solid #f4f4f4;
         margin-left: 120px;
         height: 400px;
         width: 800px;

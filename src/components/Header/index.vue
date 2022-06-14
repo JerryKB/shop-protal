@@ -12,7 +12,7 @@
                     <em>/</em>
                 </li>
                 <li>
-                    <span>注册</span>
+                    <span @click="toRegistry">注册</span>
                     <em>/</em>
                 </li>
                 <li>
@@ -20,7 +20,7 @@
                     <em>/</em>
                 </li>
                 <li>
-                    <span>我的订单</span>
+                    <span @click="toOrder">我的订单</span>
                     <em>/</em>
                 </li>
                 <li>
@@ -53,9 +53,6 @@
 </template>
 
 <script>
-    import {getRequest} from "@/api/request";
-    import {getUserIfo} from "@/api";
-
     export default {
         name: "header-index",
         data(){
@@ -64,18 +61,28 @@
             }
         },
         mounted() {
-            console.log(getUserIfo)
+
 
         },
         methods:{
             toLogin(){
                 this.$router.push('/login')
+            },
+            toRegistry(){
+                this.$router.push('/registry')
+
+            },
+            toOrder(){
+                this.$router.push('/order')
             }
         }
     }
 </script>
 
 <style scoped>
+    span:hover{
+        cursor: pointer;
+    }
     .top{
         font-size: 10px;
         position: relative;
