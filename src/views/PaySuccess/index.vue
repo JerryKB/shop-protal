@@ -11,8 +11,8 @@
                 </h3>
                 <div class="paydetail">
                     <p class="button">
-                        <a href="myOrder.html" class="btn-look">查看订单</a>
-                        <a href="index.html" class="btn-goshop">继续购物</a>
+                        <a href="javascript:void(0)" @click="toOrder" class="btn-look">查看订单</a>
+                        <a href="javascript:void(0)" @click="toHome" class="btn-goshop">继续购物</a>
                     </p>
                 </div>
             </div>
@@ -23,7 +23,15 @@
 
 <script>
     export default {
-        name: "pay-success-index"
+        name: "pay-success-index",
+        methods:{
+            toOrder(){
+                this.$router.push('/order')
+            },
+            toHome(){
+                this.$router.push('/')
+            }
+        }
     }
 </script>
 

@@ -7,230 +7,56 @@
                 </h4>
                 <div class="cart-main">
                     <div class="cart-th clearfix">
-                        <div><input type="checkbox">全选</div>
+                        <div><input type="checkbox" v-model="checkedAll" @change="changeState">全选</div>
                         <div class="">商品</div>
-                        <div class="">单价（元）</div>
+<!--                        <div class="">单价（元）</div>-->
                         <div class="">数量</div>
                         <div class="">小计（元）</div>
                         <div class="">操作</div>
                     </div>
                     <div class="cart-title clearfix">
-                        <div class="yunfei fr">
-                            运费：￥6.00
-                            <span>还差￥99.00免运费</span>
-                        </div>
+
                     </div>
                     <div class="cart-item-list">
                         <div class="cart-body">
                             <div class="cart-list">
-                                <ul class="goods-list yui3-g">
+                                <ul class="goods-list yui3-g" v-for="(c,index) in cars" :key="c.id">
                                     <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
+                                        <input type="checkbox" v-model="checkModel" :value="index" @click="select(c)"  class="good-checkbox">
                                         <div class="good-item">
                                             <div class="item-img">
-<!--                                                <img src="uploads/mobile.png">-->
+                                                <img :src="c.img_src">
                                             </div>
-                                            <div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存</div>
+                                            <div class="item-msg">{{c.name}}</div>
                                         </div>
                                     </li>
-                                    <li class="yui3-u-1-8">
-                                        <span>颜色: 银色</span>
-                                        <br>
-                                        <span>处理器: Core I5</span>
-                                        <br>
-                                        <span>内存: 8GB</span>
-                                        <br>
-                                        <span>尺寸: 13.3英寸</span>
-                                        <br>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="price">8848.00</span>
-                                    </li>
+
+<!--                                    <li class="yui3-u-1-8">-->
+<!--                                        <span class="price">{{car.price}}</span>-->
+<!--                                    </li>-->
                                     <li class="yui3-u-1-8">
                                         <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
+                                            <a href="javascript:;" class="increment mins" @click="des(index)">-</a>
+                                            <input autocomplete="off" type="text" v-model="c.product_num" minnum="1" class="itxt">
+                                            <a href="javascript:;" @click="plus(index)" class="increment plus">+</a>
                                         </div>
-                                        <div class="youhuo">有货</div>
+<!--                                        <div class="youhuo">有货</div>-->
                                     </li>
                                     <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
+                                        <span class="sum">{{c.products_price}}</span>
                                     </li>
                                     <li class="yui3-u-1-8">
                                         <div class="del1">
-                                            <a href="javascript:;">删除</a>
+                                            <a href="javascript:void(0);" @click="del(c.id)">删除</a>
                                         </div>
-                                        <div>移到我的关注</div>
                                     </li>
                                 </ul>
-                                <ul class="goods-list yui3-g">
-                                    <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
-                                        <div class="good-item">
-                                            <div class="item-img">
-<!--                                                <img src="uploads/mobile.png">-->
-                                            </div>
-                                            <div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存</div>
-                                        </div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span>颜色: 银色</span>
-                                        <br>
-                                        <span>处理器: Core I5</span>
-                                        <br>
-                                        <span>内存: 8GB</span>
-                                        <br>
-                                        <span>尺寸: 13.3英寸</span>
-                                        <br>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="price">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="del1">
-                                            <a href="javascript:;">删除</a>
-                                        </div>
-                                        <div>移到我的关注</div>
-                                    </li>
-                                </ul>
-                                <ul class="goods-list active yui3-g">
-                                    <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
-                                        <div class="good-item">
-                                            <div class="item-img">
-<!--                                                <img src="uploads/mobile.png">-->
-                                            </div>
-                                            <div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存</div>
-                                        </div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span>颜色: 银色</span>
-                                        <br>
-                                        <span>处理器: Core I5</span>
-                                        <br>
-                                        <span>内存: 8GB</span>
-                                        <br>
-                                        <span>尺寸: 13.3英寸</span>
-                                        <br>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="price">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="del1">
-                                            <a href="javascript:;">删除</a>
-                                        </div>
-                                        <div>移到我的关注</div>
-                                    </li>
-                                </ul>
-                                <ul class="goods-list yui3-g">
-                                    <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
-                                        <div class="good-item">
-                                            <div class="item-img">
-<!--                                                <img src="uploads/mobile.png">-->
-                                            </div>
-                                            <div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存</div>
-                                        </div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span>颜色: 银色</span>
-                                        <br>
-                                        <span>处理器: Core I5</span>
-                                        <br>
-                                        <span>内存: 8GB</span>
-                                        <br>
-                                        <span>尺寸: 13.3英寸</span>
-                                        <br>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="price">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="del1">
-                                            <a href="javascript:;">删除</a>
-                                        </div>
-                                        <div>移到我的关注</div>
-                                    </li>
-                                </ul>
-                                <ul class="goods-list yui3-g">
-                                    <li class="yui3-u-3-8 pr">
-                                        <input type="checkbox" class="good-checkbox">
-                                        <div class="good-item">
-                                            <div class="item-img">
-<!--                                                <img src="uploads/mobile.png">-->
-                                            </div>
-                                            <div class="item-msg">Apple Macbook Air 13.3英寸笔记本电脑 银色（Corei5）处理器/8GB内存</div>
-                                        </div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span>颜色: 银色</span>
-                                        <br>
-                                        <span>处理器: Core I5</span>
-                                        <br>
-                                        <span>内存: 8GB</span>
-                                        <br>
-                                        <span>尺寸: 13.3英寸</span>
-                                        <br>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="price">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="clearfix">
-                                            <a href="javascript:;" class="increment mins">-</a>
-                                            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-                                            <a href="javascript:;" class="increment plus">+</a>
-                                        </div>
-                                        <div class="youhuo">有货</div>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <span class="sum">8848.00</span>
-                                    </li>
-                                    <li class="yui3-u-1-8">
-                                        <div class="del1">
-                                            <a href="javascript:;">删除</a>
-                                        </div>
-                                        <div>移到我的关注</div>
-                                    </li>
-                                </ul>
+
                             </div>
                         </div>
+                        <span class="text" v-if="cars===null">暂无商品添加</span>
                     </div>
+
                 </div>
                 <div class="cart-tool clearfix">
                     <div class="money-box">
@@ -238,17 +64,17 @@
                             <div class="sumprice-top">
                                 <span>
                                     已选择
-                                    <strong>0</strong> 件商品</span>
+                                    <strong>{{checkModel.length}}</strong> 件商品</span>
 
                                 <em>总价（不含运费）：</em>
-                                <i class="summoney">￥<span>44240.00</span></i>
+                                <i class="summoney">￥<span>{{sum}}</span></i>
                             </div>
                             <div class="sumprice-bottom">
                                 已节省：￥20.00
                             </div>
                         </div>
                         <div class="sumbtn">
-                            <a class="sum-btn" href="pay.html">结算</a>
+                            <a class="sum-btn" href="javascript:void(0)" @click="result">结算</a>
                         </div>
                     </div>
                 </div>
@@ -259,7 +85,109 @@
 
 <script>
     export default {
-        name: "index"
+        name: "index",
+        data(){
+            return{
+                checkedAll:false,
+                cars:null,
+                checkModel:[],
+                sum:0,
+                selectOrder:[]
+            }
+        },
+        mounted() {
+            this.init();
+
+
+
+        },
+        methods:{
+            init(){
+                this.getRequest("/shopcar/getAll/"+JSON.parse(window.sessionStorage.getItem("userInfo")).id).then(data=>{
+                    console.log(data)
+                    this.cars=data
+
+                })
+            },
+            changeState(){
+                this.checkModel = [];
+                if(this.checkedAll){
+                    for (let i=0;i<this.cars.length;i++){
+                        this.sum+=this.cars[i].products_price
+                    }
+                    for(let i in this.cars){
+                        this.checkModel.push(this.cars[i].id)
+                    }
+                }else {
+                    this.sum=0
+                }
+            },
+            select(c){
+
+                console.log(c)
+                if(typeof c.makeChoose=='undefined'){  //这里要注意,因为checked字段根本不在this.getProductList里面,所以你要自己赋值进去
+                   c.makeChoose=true
+
+                }else{
+                    c.makeChoose=!c.makeChoose
+
+                }
+                if (c.makeChoose){
+                    this.sum+=c.products_price
+                }else{
+                    this.sum-=c.products_price
+                }
+
+
+            },
+            del(id){
+                this.deleteRequest("/shopcar/deleteShopCar/"+id).then(data=>{
+                    if (data.code==200){
+                        this.$message.success(data.message)
+                    }else {
+                        this.$message.error(data.message)
+                    }
+                })
+                this.init()
+
+
+            },
+            plus(index){
+                let single=this.cars[index].products_price/this.cars[index].product_num;
+                this.cars[index].product_num++
+                this.cars[index].products_price=this.cars[index].product_num*single;
+            },
+            des(index){
+                if (this.cars[index].product_num==1)return
+                let single=this.cars[index].products_price/this.cars[index].product_num;
+                this.cars[index].product_num--
+                this.cars[index].products_price=this.cars[index].product_num*single;
+            },
+            result(){
+
+                for (let i=0;i<this.cars.length;i++){
+                    if (this.cars[i].makeChoose==true){
+                        this.getRequest('/order/addOrder/'+JSON.parse(window.sessionStorage.getItem('userInfo')).real_name+"/"+0+"/"+JSON.parse(window.sessionStorage.getItem('userInfo')).id+"/"+this.cars[i].products_price+"/"+this.cars[i].product_num+"/"+this.cars[i].product_id).then(data=>{
+                            console.log(data)
+                        })
+                        this.$router.push('/paySuccess')
+                    }
+                }
+            }
+        },
+        watch:{
+            checkModel :{
+                handler (){
+                    if(this.checkModel.length === this.cars.length){
+                        this.checkedAll = true
+                    }else{
+                        this.checkedAll = false
+                    }
+                },
+                deep: true
+            },
+
+        }
     }
 </script>
 
@@ -535,7 +463,7 @@
         position: absolute;
         width: 20px;
         height: 20px;
-        /*background: url(./img/icons.png) no-repeat;*/
+
         background-position: -422px -135px;
     }
 
@@ -553,6 +481,12 @@
     }
 
     .item-msg {
+       width: 473px;
+        white-space: nowrap;
+        overflow: hidden;
+
+        line-height: 45px;
+        text-overflow: ellipsis;
         padding: 20px 0;
     }
 

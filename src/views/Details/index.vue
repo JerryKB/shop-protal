@@ -2,15 +2,7 @@
     <div class="outer">
         <!-- 主要内容区域 -->
         <section class="con">
-            <!-- 导航路径区域 -->
-            <div class="conPoin">
-                <div class="conPoin">
-                    <a href="###">手机、数码、通讯</a>
-                    <a href="###">手机</a>
-                    <a href="###">Apple苹果</a>
-                    <a>iphone 6S系类</a>
-                </div>
-            </div>
+
             <!-- 主要内容区域 -->
             <div class="mainCon">
                 <!-- 左侧放大镜区域 -->
@@ -18,55 +10,35 @@
                     <!--放大镜效果-->
                     <div class="preview">
                         <div class="jqzoom">
-                            <img src="./images/s1.png" />
+                            <img :src="product.img_src" />
                             <div class="mask"></div>
 
                         </div>
                         <div class="maxbox">
-                            <img src="./images/s1.png">
+                            <img :src="product.img_src">
                         </div>
                     </div>
-                    <!--下方的缩略图-->
-<!--                    <div class="specScroll">-->
-<!--                        &lt;!&ndash;左按钮&ndash;&gt;-->
-<!--                        <a class="prev">&lt;</a>-->
-<!--                        &lt;!&ndash; 中间可滑动区域 &ndash;&gt;-->
-<!--                        <div class="items">-->
-<!--                            <div class="itemsCon">-->
-
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash;右按钮&ndash;&gt;-->
-<!--                        <a class="next">&gt;</a>-->
-<!--                    </div>-->
-
                 </div>
-                <!-- 右侧选择区域布局 -->
                 <div class="InfoWrap">
                     <div class="goodsDetail">
-                        <h3 class="InfoName">${goodsCon.title}</h3>
-                        <p class="news">${goodsCon.recommend}</p>
+                        <h3 class="InfoName">{{product.name}}</h3>
                         <div class="priceArea">
                             <div class="priceArea1">
                                 <div class="title">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</div>
                                 <div class="price">
                                     <i>¥</i>
-                                    <em>${goodsCon.price}</em>
-                                    <span>降价通知</span>
+                                    <em>{{product.price}}</em>
+
                                 </div>
-                                <div class="remark">
-                                    <i>累计评价</i>
-                                    <em>${goodsCon.evaluateNum}</em>
-                                </div>
+
                             </div>
                             <div class="priceArea2">
                                 <div class="title">
                                     <i>促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</i>
                                 </div>
                                 <div class="fixWidth">
-                                    <i class="red-bg">苹果手机</i>
-                                    <em
-                                            class="t-gray">苹果手6+128g机</em>
+                                    <i class="red-bg">直击底价，后惠无期。</i>
+
                                 </div>
                             </div>
                         </div>
@@ -75,30 +47,39 @@
                                 <div class="title">支&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;持</div>
                                 <div class="fixWidth">顺丰</div>
                             </div>
-                            <div class="supportArea">
-                                <div class="title">配 送 至</div>
-                                <div class="fixWidth">xxxx</div>
-                            </div>
                         </div>
 
                     </div>
 
                     <div class="choose">
                         <div class="chooseArea">
-                            <div class="choosed"></div>
+                            <dl>
+                                <dt class="title">颜色</dt>
+                                <dd @click="select1(index,s)" :class="index===current? activeColor:'none'" :ref="index"  v-for="(s,index) in attribute_list.color" :key="index">{{s}}</dd>
+
+
+                            </dl>
+                            <dl>
+                                <dt class="title">规格</dt>
+                                <dd v-for="(s,index)  in attribute_list.size"  :class="index===current2? activeColor:'none'" :key="index" @click="select2(index,s)">{{s}}</dd>
+                                <dd v-for="(s,index) in attribute_list.specification"  :class="index===current2? activeColor:'none'" :key="index" @click="select2(index,s)">{{s}}</dd>
+                            </dl>
+                            <div class="choosed">
+                                <span></span>
+                            </div>
                         </div>
 
                         <div class="cartWrap">
                             <div class="controls">
-                                <input autocomplete="off" value="1" class="itxt" />
-                                <a href="###" class="plus">+</a>
-                                <a href="###" class="mins">-</a>
+                                <input autocomplete="off" v-model="num" class="itxt" />
+                                <a href="javascript:void(0);" class="plus" @click="plus">+</a>
+                                <a href="javascript:void(0);" class="mins" @click="del">-</a>
                             </div>
                             <div class="add">
-                                <a href="###">加入购物车</a>
+                                <a href="javascript:void(0);" @click="add">加入购物车</a>
                             </div>
                             <div class="add" style="margin-left: 10px">
-                                <a @click="buy" href="#">立即购买</a>
+                                <a @click="buy" href="javascript:void(0);">立即购买</a>
                             </div>
                         </div>
                     </div>
@@ -114,108 +95,23 @@
                 </div>
                 <div class="tabContent">
                     <div class="tab-pane active">
-                        <ul class="partList">
-                            <li>手机</li>
-                            <li>手机壳</li>
-                            <li>内存卡</li>
-                            <li>Iphone配件</li>
-                            <li>贴膜</li>
-                            <li>手机耳机</li>
-                            <li>移动电源</li>
-                            <li>平板电脑</li>
-                        </ul>
                         <ul class="goodsList">
-                            <li>
+                            <li v-for="(p,index) in part" :key="index">
                                 <div class="list-wrap">
                                     <div class="p-img">
-                                        <img src="./images/part01.png" />
+                                        <img :src="p.img_src"/>
                                     </div>
-                                    <div class="attr">Apple苹果iPhone 6s (A1699) </div>
+                                    <div class="attr">{{p.name}} </div>
                                     <div class="price">
                                         <em>¥</em>
-                                        <i>6088.00</i>
+                                        <i>{{p.price}}</i>
                                     </div>
                                     <div class="operate">
                                         <a href="javascript:void(0);">加入购物车</a>
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="list-wrap">
-                                    <div class="p-img">
-                                        <img src="./images/part02.png" />
-                                    </div>
-                                    <div class="attr">
-                                        <em>Apple苹果iPhone 6s (A1699)</em>
-                                    </div>
-                                    <div class="price">
-                                        <strong>
-                                            <em>¥</em>
-                                            <i>6088.00</i>
-                                        </strong>
-                                    </div>
-                                    <div class="operate">
-                                        <a href="javascript:void(0);">加入购物车</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="list-wrap">
-                                    <div class="p-img">
-                                        <img src="./images/part03.png" />
-                                    </div>
-                                    <div class="attr">
-                                        <em>Apple苹果iPhone 6s (A1699)</em>
-                                    </div>
-                                    <div class="price">
-                                        <strong>
-                                            <em>¥</em>
-                                            <i>6088.00</i>
-                                        </strong>
-                                    </div>
-                                    <div class="operate">
-                                        <a href="javascript:void(0);">加入购物车</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="list-wrap">
-                                    <div class="p-img">
-                                        <img src="./images/part02.png" />
-                                    </div>
-                                    <div class="attr">
-                                        <em>Apple苹果iPhone 6s (A1699)</em>
-                                    </div>
-                                    <div class="price">
-                                        <strong>
-                                            <em>¥</em>
-                                            <i>6088.00</i>
-                                        </strong>
-                                    </div>
-                                    <div class="operate">
-                                        <a href="javascript:void(0);">加入购物车</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="list-wrap">
-                                    <div class="p-img">
-                                        <img src="./images/part03.png" />
-                                    </div>
-                                    <div class="attr">
-                                        <em>Apple苹果iPhone 6s (A1699)</em>
-                                    </div>
-                                    <div class="price">
-                                        <strong>
-                                            <em>¥</em>
-                                            <i>6088.00</i>
-                                        </strong>
-                                    </div>
-                                    <div class="operate">
-                                        <a href="javascript:void(0);">加入购物车</a>
-                                    </div>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                     <div class="tab-pane">
@@ -249,26 +145,10 @@
                     </ul>
                     <div class="tab-content">
                         <div id="one" class="tab-pane active">
-                            <ul class="goods-intro">
-                                <li>分辨率：1920*1080(FHD)</li>
-                                <li>后置摄像头：1200万像素</li>
-                                <li>前置摄像头：500万像素</li>
-                                <li>核 数：其他</li>
-                                <li>频 率：以官网信息为准</li>
-                                <li>品牌： Apple</li>
-                                <li>商品名称：APPLEiPhone 6s Plus</li>
-                                <li>商品编号：1861098</li>
-                                <li>商品毛重：0.51kg</li>
-                                <li>商品产地：中国大陆</li>
-                                <li>热点：指纹识别，Apple Pay，金属机身，拍照神器</li>
-                                <li>系统：苹果（IOS）</li>
-                                <li>像素：1000-1600万</li>
-                                <li>机身内存：64GB</li>
-                            </ul>
+
                             <div class="intro-detail">
-                                <img src="./images/intro01.png" />
-                                <img src="./images/intro02.png" />
-                                <img src="./images/intro03.png" />
+                                <img :src="product.img_src" />
+
                             </div>
                         </div>
                         <div id="two" class="tab-pane">
@@ -284,93 +164,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- 猜你喜欢 -->
-        <div class="like">
-            <h4 class="kt">猜你喜欢</h4>
-            <ul class="like-list">
-                <li class="likeItem">
-                    <div class="p-img">
-                        <img src="./images/itemlike01.png" />
-                    </div>
-                    <div class="attr">
-                        <em>DELL戴尔Ins 15MR-7528SS 15英寸 银色 笔记本</em>
-                    </div>
-                    <div class="price">
-                        <em>¥</em>
-                        <i>3699.00</i>
-                    </div>
-                    <div class="commit">已有6人评价
-                    </div>
-                </li>\
-                <li class="likeItem">
-                    <div class="p-img">
-                        <img src="./images/itemlike02.png" />
-                    </div>
-                    <div class="attr">
-                        Apple苹果iPhone 6s/6s Plus 16G 64G 128G
-                    </div>
-                    <div class="price">
-                        <em>¥</em>
-                        <i>4388.00</i>
-                    </div>
-                    <div class="commit">已有700人评价
-                    </div>
-                </li>
-                <li class="likeItem">
-                    <div class="p-img">
-                        <img src="./images/itemlike03.png" />
-                    </div>
-                    <div class="attr">DELL戴尔Ins 15MR-7528SS 15英寸 银色 笔记本
-                    </div>
-                    <div class="price">
-                        <em>¥</em>
-                        <i>4088.00</i>
-                    </div>
-                    <div class="commit">已有700人评价
-                    </div>
-                </li>
-                <li class="likeItem">
-                    <div class="p-img">
-                        <img src="./images/itemlike04.png" />
-                    </div>
-                    <div class="attr">DELL戴尔Ins 15MR-7528SS 15英寸 银色 笔记本
-                    </div>
-                    <div class="price">
-                        <em>¥</em>
-                        <i>4088.00</i>
-                    </div>
-                    <div class="commit">已有700人评价
-                    </div>
-                </li>
-                <li class="likeItem">
-                    <div class="p-img">
-                        <img src="./images/itemlike05.png" />
-                    </div>
-                    <div class="attr">DELL戴尔Ins 15MR-7528SS 15英寸 银色 笔记本
-                    </div>
-                    <div class="price">
-                        <em>¥</em>
-                        <i>4088.00</i>
-                    </div>
-                    <div class="commit">已有700人评价
-                    </div>
-                </li>
-                <li class="likeItem">
-                    <div class="p-img">
-                        <img src="./images/itemlike06.png" />
-                    </div>
-                    <div class="attr">DELL戴尔Ins 15MR-7528SS 15英寸 银色 笔记本
-                    </div>
-                    <div class="price">
-                        <em>¥</em>
-                        <i>4088.00</i>
-                    </div>
-                    <div class="commit">已有700人评价
-                    </div>
-                </li>
-            </ul>
-        </div>
     </div>
 
 </template>
@@ -381,14 +174,33 @@
         name: "detail-index",
         data(){
             return{
+                num:1,
                 active:[
                     {name:'active'},{name:''},{name:''},{name:''}],
+                product:this.$store.state.product,
+                attribute_list:JSON.parse(this.$store.state.product.attribute_list),
+                color:'',
+                other:'',
+                current:0,
+                current2:0,
+                activeColor:'activeColor',
+                part:{},
+                size:'',
+                sigle:0,
             }
         },
         mounted() {
             this.amplify();
-
-
+            this.getRequest("/product/getPartProduct/"+this.product.category_id+"/"+6).then(data=>{
+                this.part=data;
+            })
+            this.sigle=this.product.price
+            this.color=this.attribute_list.color[0];
+           if (this.attribute_list.size){
+               this.size=this.attribute_list.size[0]
+           }else{
+               this.size=this.attribute_list.specification[0]
+           }
                 },
         methods:{
             amplify(){
@@ -445,11 +257,75 @@
                     this.active[i].name='';
                 }
                 this.active[num].name='active';
-                console.log(this.active)
+
 
             },
             buy(){
-                this.$router.push('/subOrder')
+                let form={
+                    name:this.product.name,
+                    id:this.product.id,
+                    url:this.product.img_src,
+                    sum:this.product.price*this.num,
+                    color:this.color,
+                    size:this.size,
+                    num:this.num
+                }
+
+                if(window.sessionStorage.getItem("userInfo")==null||window.sessionStorage.getItem("userInfo")==''){
+                    this.$router.push('/login')
+                }else{
+                    this.$router.push({
+                        path:'/subOrder',
+                        query:{
+                            orders: form
+                        }
+                    })
+                }
+
+            },
+            plus(){
+                this.num++;
+
+                this.product.price=this.sigle*this.num
+            },
+            del() {
+                if (this.num === 1) {
+                    return
+                }
+                this.num--;
+                this.product.price=this.sigle*this.num
+            },
+            select1(index,s){
+                this.current=index
+                // console.log(s[index])
+                this.color = s;
+
+            },
+            select2(index,s){
+                this.current2 = index;
+                this.size = s;
+
+            },
+            add(){
+                if(window.sessionStorage.getItem("userInfo")==null||window.sessionStorage.getItem("userInfo")==''){
+                    this.$router.push('/login')
+                }else{
+                    let form={
+                        product_num:this.num,
+                        product_id:this.product.id,
+                        products_price:this.product.price,
+                        user_id:JSON.parse(window.sessionStorage.getItem("userInfo")).id
+
+                    }
+                    this.postRequest('/shopcar/add',form).then(data=>{
+                        if (data.code===200){
+                            this.$message.success(data.message)
+                        }else {
+                            this.$message.error(data.message)
+                        }
+                    })
+                }
+
             }
 
 
@@ -463,6 +339,14 @@
 </script>
 
 <style scoped>
+    .activeColor{
+
+        /*background-color: #f10180;*/
+        /*display: block;*/
+        border: 1px solid #f10180 !important ;
+    }
+
+
     .outer .con {
         width: 1200px;
         margin: 15px auto 0;
@@ -654,6 +538,7 @@
     }
     .outer .con .mainCon .InfoWrap .choose .chooseArea {
         overflow: hidden;
+        position: relative;
         line-height: 28px;
         margin-top: 10px;
     }
@@ -681,8 +566,11 @@
         float: left;
     }
     .outer .con .mainCon .InfoWrap .choose .chooseArea dl dd {
+        width: 30px;
+        text-align: center;
         float: left;
         margin-right: 5px;
+        font-size: 10px;
         color: #666;
         line-height: 24px;
         padding: 2px 14px;
@@ -691,8 +579,11 @@
         border-bottom: 1px solid #bbb;
         border-left: 1px solid #eee;
     }
+    .outer .con .mainCon .InfoWrap .choose .chooseArea dl dd:hover{
+        cursor: pointer;
+    }
     .outer .con .mainCon .InfoWrap .choose .chooseArea dl dd:nth-of-type(1) {
-        color: red;
+        font-size: 10px;
     }
     .outer .con .mainCon .InfoWrap .choose .cartWrap .controls {
         width: 48px;
@@ -702,7 +593,7 @@
     }
     .outer .con .mainCon .InfoWrap .choose .cartWrap .controls .itxt {
         width: 38px;
-        height: 37px;
+        height: 35px;
         border: 1px solid #ddd;
         color: #555;
         float: left;
@@ -789,6 +680,17 @@
         margin: 5px 0 15px;
         border-bottom: 1px solid #ededed;
         padding-bottom: 5px;
+    }
+    .outer .productDetail .aside .tabContent .tab-pane:nth-child(1) .goodsList > li .list-wrap .attr{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /*弹性伸缩盒子模型显示*/
+        display: -webkit-box;
+        /*限制在一个块元素显示的文本的行数*/
+        -webkit-line-clamp: 2;
+        /*设置或检索伸缩盒对象的子元素的排列方式*/
+        -webkit-box-orient: vertical; /*vertical:从上到下子排列*/
+
     }
     .outer .productDetail .aside .tabContent .tab-pane:nth-child(1) .goodsList > li .list-wrap .p-img {
         text-align: center;
@@ -977,7 +879,15 @@
         height: 123px;
     }
     .outer .like .like-list .likeItem .attr {
-        padding: 0 15px;
+        height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /*弹性伸缩盒子模型显示*/
+        display: -webkit-box;
+        /*限制在一个块元素显示的文本的行数*/
+        -webkit-line-clamp: 2;
+        /*设置或检索伸缩盒对象的子元素的排列方式*/
+        -webkit-box-orient: vertical; /*vertical:从上到下子排列*/
     }
     .outer .like .like-list .likeItem .price {
         padding: 0 15px;

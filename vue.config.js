@@ -12,7 +12,7 @@ module.exports = {
     lintOnSave:false,
     devServer: {
         host: 'localhost',
-        port: 8080,
+        port: 8081,
         proxy: proxyObj
     }
 }

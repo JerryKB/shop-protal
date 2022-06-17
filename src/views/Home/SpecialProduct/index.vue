@@ -14,28 +14,99 @@
         <div class="item">
             <a href="#">
                 <img src="./img/sort_item2.jpg">
-
             </a>
             <div class="sort_detail">
-                <span class="discount">6</span>
+                <span class="discount">4.9</span>
                 <span class="dw">折起</span>
-                <span class="sort_detail_title">苹果APPLE数码电子专场</span>
+                <span class="sort_detail_title">魅可MAC彩妆香水专场</span>
             </div>
-
         </div>
-        <template v-for="(a,b) of 6">
-            <div class="item">
-                <a href="#">
-                    <img src="./img/sort_item2.jpg">
-
-                </a>
-                <div class="sort_detail">
-                    <span class="discount">6</span>
-                    <span class="dw">折起</span>
-                    <span class="sort_detail_title">苹果APPLE数码电子专场</span>
-                </div>
+        <div class="item">
+            <a href="#">
+                <img src="./img/sort_item3.jpg">
+            </a>
+            <div class="sort_detail">
+                <span class="discount">4.9</span>
+                <span class="dw">折起</span>
+                <span class="sort_detail_title">魅可MAC彩妆香水专场</span>
             </div>
-        </template>
+        </div>
+        <div class="item">
+            <a href="#">
+                <img src="./img/sort_item4.jpg">
+            </a>
+            <div class="sort_detail">
+                <span class="discount">4.9</span>
+                <span class="dw">折起</span>
+                <span class="sort_detail_title">魅可MAC彩妆香水专场</span>
+            </div>
+        </div>
+        <div class="item">
+            <a href="#">
+                <img src="./img/sort_item5.jpg">
+            </a>
+            <div class="sort_detail">
+                <span class="discount">4.9</span>
+                <span class="dw">折起</span>
+                <span class="sort_detail_title">魅可MAC彩妆香水专场</span>
+            </div>
+        </div>
+        <div class="item">
+            <a href="#">
+                <img src="./img/sort_item6.jpg">
+            </a>
+            <div class="sort_detail">
+                <span class="discount">4.9</span>
+                <span class="dw">折起</span>
+                <span class="sort_detail_title">魅可MAC彩妆香水专场</span>
+            </div>
+        </div>
+        <div class="item">
+            <a href="#">
+                <img src="./img/sort_item7.jpg">
+            </a>
+            <div class="sort_detail">
+                <span class="discount">4.9</span>
+                <span class="dw">折起</span>
+                <span class="sort_detail_title">魅可MAC彩妆香水专场</span>
+            </div>
+        </div>
+        <div class="item">
+            <a href="#">
+                <img src="./img/sort_item.jpg">
+            </a>
+            <div class="sort_detail">
+                <span class="discount">4.9</span>
+                <span class="dw">折起</span>
+                <span class="sort_detail_title">魅可MAC彩妆香水专场</span>
+            </div>
+        </div>
+
+<!--        <div class="item">-->
+<!--            <a href="#">-->
+<!--                <img src="./img/sort_item2.jpg">-->
+
+<!--            </a>-->
+<!--            <div class="sort_detail">-->
+<!--                <span class="discount">6</span>-->
+<!--                <span class="dw">折起</span>-->
+<!--                <span class="sort_detail_title">苹果APPLE数码电子专场</span>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--        <template v-for="(a,b) of 8">-->
+<!--            <div class="item">-->
+<!--                <a href="#">-->
+<!--                    <img src="`./img/sort_item${a}.jpg`">-->
+
+<!--                </a>-->
+<!--                <div class="sort_detail">-->
+<!--                    <span class="discount">6</span>-->
+<!--                    <span class="dw">折起</span>-->
+<!--                    <span class="sort_detail_title">苹果APPLE数码电子专场</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </template>-->
     </div>
 </template>
 

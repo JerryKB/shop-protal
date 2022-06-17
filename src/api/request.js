@@ -1,6 +1,4 @@
 import axios from "axios";
-// import qs from 'qs'
-
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.interceptors.response.use(success => {
     // if (success.status && success.status === 200) {
@@ -30,34 +28,31 @@ axios.interceptors.response.use(success => {
     //         Message.error({message: '未知错误！'})
     //     }
     // }
-    // return
+    return
 })
-
-
-
-const baseUrl='http://localhost:8080/shop'
-console.log(baseUrl)
-
+axios.interceptors.request.use(config => {
+    // 如果存在 token，请求携带这个 token( 登录的时候 把 token 存入了 sessionStorage ）
+    if (window.sessionStorage.getItem("tokenStr")) {
+        // token 的key : Authorization ; value: tokenStr
+        config.headers['Authorization'] = window.sessionStorage.getItem('tokenStr')
+    }
+    return config;
+},error => {
+    console.log(error)
+})
+let baseUrl='shop'
 export const postRequest = (url,params) => {
-    // params=qs.stringify(params)
     return axios({
         method: 'post',
         url: `${baseUrl}${url}`,
         data: params
     })
 }
-
-export const getRequestWithParams = (url, params) => {
+export const getRequest = (url, params) => {
     return axios({
         method: 'get',
         url: `${baseUrl}${url}`,
         data: params
-    })
-}
-export const getRequest = (url) => {
-    return axios({
-        method: 'get',
-        url: `${baseUrl}${url}`,
     })
 }
 

@@ -4,7 +4,7 @@
             <h3>账号登录</h3>
             <div class="username-login">
                 <i class="el-icon-user"></i>
-                <input type="text" v-model="form.username" placeholder="请输入用户名"></input>
+                <input type="text" v-model="form.username"  placeholder="请输入用户名"></input>
             </div>
             <div class="password-login">
                 <i class="el-icon-lock"></i>
@@ -12,11 +12,11 @@
                 <i id="iconInput" :class="icon" @click="isShow"></i>
             </div>
             <div class="other">
-                <p><a @click="registry">注册账号</a></p>
-                <p><a @click="forget">忘记密码</a></p>
+                <p><span  @click="registry">注册账号</span></p>
+                <p><span  @click="forget">忘记密码</span></p>
             </div>
             <div class="login">
-                <button class="btn" @click="login">登录</button>
+                <button class="btn" href="javascript:void(0)" @click="login">登录</button>
 
             </div>
 
@@ -48,6 +48,31 @@
             },
 
             login(){
+                if (this.form.username===null||this.form.username===''){
+                    this.$message.error('用户名不能为空');
+                    return;
+                }
+                if (this.form.password===null||this.form.password===''){
+                    this.$message.error('密码不能为空');
+                    return;
+                }
+                this.postRequest('/user/login',this.form).then(data=>{
+                   if (data.code==200){
+                       this.$message({
+                           message: '登录成功',
+                           type: 'success'
+                       });
+                       console.log(data)
+                       window.sessionStorage.setItem('tokenStr',data.obj.token)
+                       window.sessionStorage.setItem('userInfo',JSON.stringify(data.obj.info))
+                       this.$router.push('/')
+                   }
+                   else{
+                       this.$message.error(data.message)
+                   }
+                })
+
+
 
             },
             registry(){
@@ -55,7 +80,7 @@
             },
             forget(){
                 this.$router.push('/forget')
-            }
+            },
 
         }
     }
@@ -138,7 +163,7 @@
         float: right;
         margin-right: 16px;
     }
-    .inputs .other p a:hover{
+    .inputs .other p span:hover{
         cursor: pointer;
         color: #f10180;
     }

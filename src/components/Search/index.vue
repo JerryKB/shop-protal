@@ -6,7 +6,7 @@
         <span class="minLogo"></span>
 
         <div class="input">
-            <input type="text" class="search" placeholder="女式T恤" autofocus/>
+            <input type="text" class="search"v-model="name" placeholder="女式T恤" autofocus/>
             <button class="input_btn iconfont icon-icon-test" @click="toProducts"></button>
             <div class="input_down">
                 <a href="#">
@@ -41,7 +41,7 @@
         <div class="shopping">
             <span class="iconfont icon-24gl-bag bag" @click="toCars">
                 <i>购物车</i>
-                <span class="dot">0</span>
+                <span class="dot">{{count}}</span>
             </span>
         </div>
     </div>
@@ -50,15 +50,45 @@
 <script>
     export default {
         name: "search-index",
+        data(){
+            return{
+                name:'',
+                count:0
+            }
+        },
+        mounted() {
+          this.getRequest('/shopcar/gets/'+JSON.parse(window.sessionStorage.getItem('userInfo')).id).then(data=>{
+              if (data==undefined){
+                  return
+
+              }else {
+                  this.count=data
+              }
+
+          })
+        },
         methods:{
             toProducts(){
-                this.$router.push('/product')
+                this.getRequest('/product/getbyname/'+this.name).then(data=>{
+
+                    this.$store.dispatch('getProducts',data)
+                    this.$router.push('/product2')
+                })
             },
             toHome(){
                 this.$router.push('/')
             },
             toCars(){
-                this.$router.push('/cars')
+                if (JSON.parse(window.sessionStorage.getItem('userInfo'))==null) {
+                    this.$router.push('/login')
+                }else{
+                    this.$router.push('/cars')
+                }
+            }
+        },
+        watch:{
+            name(){
+                this.count=0
             }
         }
     }

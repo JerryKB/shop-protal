@@ -3,60 +3,21 @@
         <div class="sort">
             商品分类
             <ul>
-                <li>
-                    女装/男装/内衣
-                    <div class="nav_detail">
-                        <dl class="fore">
-                            <dt>
-                                <a href="">电子书</a>
-                            </dt>
-                            <dd>
-                                <em>
-                                    <a href="">免费</a>
-                                </em>
-                                <em>
-                                    <a href="">小说</a>
-                                </em>
-                                <em>
-                                    <a href="">励志与成功</a>
-                                </em>
-                                <em>
-                                    <a href="">婚恋/两性</a>
-                                </em>
-                                <em>
-                                    <a href="">文学</a>
-                                </em>
-                                <em>
-                                    <a href="">经管</a>
-                                </em>
-                                <em>
-                                    <a href="">畅读VIP</a>
-                                </em>
-                            </dd>
-                        </dl>
-                    </div>
-                </li>
+                <li v-for="(one,index1) in menu" :key="index1">
+                    {{one.name}}
+                   <div class="nav_detail">
+                       <dl class="fore" v-for="(two,index2) in one.children" :key="index2">
+                           <dt>
+                               <a href="">{{two.name}}</a>
+                           </dt>
+                           <dd>
+                               <em v-for="(three,index3) in two.children" :key="index3">
+                                   <a  @click="toProduct(three.id)">{{three.name}}</a>
+                               </em>
 
-                <li>女装/男装/内衣
-                    <div class="nav_detail"></div>
-                </li>
-                <li>女装/男装/内衣
-                    <div class="nav_detail"></div>
-                </li>
-                <li>女装/男装/内衣
-                    <div class="nav_detail"></div>
-                </li>
-                <li>女装/男装/内衣
-                    <div class="nav_detail"></div>
-                </li>
-                <li>女装/男装/内衣
-                    <div class="nav_detail"></div>
-                </li>
-                <li>女装/男装/内衣
-                    <div class="nav_detail"></div>
-                </li>
-                <li>女装/男装/内衣
-                    <div class="nav_detail"></div>
+                           </dd>
+                       </dl>
+                   </div>
                 </li>
             </ul>
 
@@ -86,7 +47,32 @@
 
 <script>
     export default {
-        name: "nav-index"
+        name: "nav-index",
+        data(){
+          return {
+              menu:{}
+
+          }
+        },
+        mounted() {
+            this.getRequest('/product-category/getInfo').then(data=>{
+                this.menu=data
+                console.log(this.menu[0].children)
+            })
+        },
+        methods:{
+            toProduct(id){
+               this.$router.push({
+                   path:'/product',
+                   query:{
+                       id
+                   }
+               })
+            }
+        }
+
+
+
     }
 </script>
 
@@ -132,7 +118,7 @@
         }
         100%{
             opacity: 1;
-            height: 411px;
+            height: 420px;
             visibility: visible !important;
 
         }
@@ -143,8 +129,8 @@
         left: 0;
         border-top: 1px solid #f4f4f4;
         margin-left: 120px;
-        height: 400px;
-        width: 800px;
+        height: 409px;
+        width: 1000px;
         padding: 5px 15px;
         background-color: #ffffff;
         display: none;
@@ -177,11 +163,11 @@
     }
     .nav_detail .fore {
         border-top: 0;
-        font-size: 15px;
+        font-size: 5px;
     }
     .nav_detail dl dt{
         float: left;
-        width: 54px;
+        width: 102px;
         line-height: 22px;
         text-align: right;
         padding: 3px 6px 0 0;
@@ -189,18 +175,21 @@
     }
     .nav_detail dl dd{
         float: left;
-        width: 600px;
+        width: 800px;
         padding: 3px 0 0;
         overflow: hidden;
     }
     .nav_detail dl em{
         float: left;
-        height: 14px;
+        height: 30px;
         line-height: 14px;
         padding: 0 8px;
         margin-top: 5px;
-        border-left: 1px solid #ccc;
 
+
+    }
+    .nav_detail dl em:hover{
+        cursor: pointer;
     }
 
 </style>

@@ -5,31 +5,19 @@
             <div class="content-top">
                 <div class="message">
                     <p>收件人信息</p>
-                    <div class="address">
-                        <span>张谋谋 北京</span>
-                        <p>张谋谋  北京市海淀区三环内 中关村软件园9号楼  159****3201</p>
+                    <div class="address" style="margin-bottom: 15px">
+                        <span>{{userInfo.real_name}}</span>
+                        <p> <v-region-selects
+                                v-model="region"
+                                @change="regionChange"
+                                town
+
+                        /></p>
+                        <el-input v-model="detail" style="width: 140px;margin-left: 10px;" placeholder="请输入详细内容"></el-input>
+                        <el-input v-model.number="mobile" style="width: 160px;margin-left: 10px;" placeholder="请输入电话号码"></el-input>
                     </div>
-                    <a href="#">更多地址</a>
-                </div>
-                <div class="message">
-                    <p>选择物流方式</p>
-                    <ul class="kuaidi">
-                        <li class="current"><i></i><span>顺丰</span></li>
-                        <li><i></i><span>中通</span></li>
-                        <li><i></i><span>圆通</span></li>
-                        <li><i></i><span>邮政</span></li>
-                        <li><i></i><span>百世</span></li>
-                    </ul>
-                </div>
-                <div class="message">
-                    <p>选择支付方式</p>
-                    <ul class="m-pay">
-                        <li class="current">银联</li>
-                        <li>微信</li>
-                        <li>支付宝</li>
-                        <li>京东白条</li>
-                        <li>PayPal</li>
-                    </ul>
+
+
                 </div>
                 <div class="message">
                     <p>送货清单</p>
@@ -37,23 +25,21 @@
                         <span>配送方式</span>
                         <div class="me-bb">
                             <span><i>顺丰</i>快递</span>
-                            <p>配送时间：预计8月10日（周三）09:00-15:00送达</p>
-                            <a href="#">修改</a>
+
                         </div>
                     </div>
                     <div class="me-bd">
                         <span>订单详情</span>
-                        <div class="me-bs">
+                        <div class="me-bs" >
                             <span>
-<!--                                <img src="uploads/mobile.png" width="100%" alt="">-->
+                                <img :src="productDetail.url" width="100%"  alt="">
                             </span>
                             <p>
-                                Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机 硅胶透明防摔软壳 本色系列
-                                <i>7天无理由退货</i>
+                                {{productDetail.name}}
+<!--                                <i>7天无理由退货</i>-->
                             </p>
-                            <div class="price">￥5399.00</div>
-                            <div class="num">X1</div>
-                            <a href="#">有货</a>
+                            <div class="price">￥{{productDetail.sum}}</div>
+                            <div class="num">X{{productDetail.num}}</div>
                         </div>
                     </div>
                 </div>
@@ -63,14 +49,13 @@
                         <span style="font-size: 12px;">普通发票（电子）     个人     明细     <a href="#">修改</a></span>
                     </div>
                     <dl>
-                        <dt>1件商品，总商品金额：</dt><dd>¥5388.00</dd>
-                        <dt>返现：</dt><dd>-¥0.00</dd>
-                        <dt>运费：</dt><dd class="mess-red">¥5388.00</dd>
+                        <dt>{{productDetail.num}}件商品，总商品金额：</dt><dd>¥{{productDetail.sum}}</dd>
+
                     </dl>
                 </div>
                 <div class="me-money">
-                    <p>应付总额 ： <span>¥5388.00</span></p>
-                    <p>寄送至：北京市海淀区三环内 中关村软件园9号楼  收货人：某某某  159****3201</p>
+                    <p>应付总额 ： <span>¥{{productDetail.sum}}</span></p>
+                    <p>寄送至：{{address}}  收货人：{{userInfo.real_name}}</p>
                 </div>
                 <a  class="me-commit" @click="toPay">提交订单</a>
             </div>
@@ -82,11 +67,42 @@
 <script>
     export default {
         name: "submit-order-index",
+        // props:['orders'],
         methods:{
             toPay(){
+                let form={
+                    user_id:this.userInfo.id,
+                    product_price:this.productDetail.sum,
+                    product_count:this.productDetail.num,
+                    order_reciever:this.userInfo.real_name,
+                    order_mobile:this.mobile
+                }
+                this.getRequest('/order/addOrder/'+form.order_reciever+"/"+form.order_mobile+"/"+form.user_id+"/"+form.product_price+"/"+form.product_count+"/"+this.productDetail.id).then(data=>{
+                    console.log(data)
+                })
                 this.$router.push('/paySuccess')
+            },
+            regionChange(data){
+                console.log(data)
+                this.address=data.province.value+data.city.value+data.area.value+data.town.value+this.detail
             }
-        }
+        },
+        data(){
+            return {
+                userInfo:'',
+                region:undefined,
+                detail:'',
+                productDetail:this.$route.query.orders,
+                product:'',
+                mobile:'',
+                address:''
+            }
+        },
+        mounted() {
+
+            this.userInfo=JSON.parse(window.sessionStorage.getItem("userInfo"));
+        },
+
     }
 </script>
 
@@ -98,7 +114,6 @@
         border-bottom: 2px solid #e01222;
     }
     .content {
-
         margin-left: 200px;
         background-color: #fff;
         padding-top: 20px;
@@ -221,8 +236,19 @@
     .me-bb i {
         font-style: normal;
     }
+    .me-bb p{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /*弹性伸缩盒子模型显示*/
+        display: -webkit-box;
+        /*限制在一个块元素显示的文本的行数*/
+        -webkit-line-clamp: 1;
+        /*设置或检索伸缩盒对象的子元素的排列方式*/
+        -webkit-box-orient: vertical; /*vertical:从上到下子排列*/
+    }
     .me-bb p,
     .me-bs p {
+
         display: inline-block;
         float: left;
         width: 334px;
@@ -232,6 +258,7 @@
         color: #656565;
         font-size: 12px;
     }
+
     .me-bb a,
     .me-bs a {
         position: absolute;
@@ -246,7 +273,7 @@
     }
     .me-bs span {
         width: 80px;
-        height: 95px;
+        height: 80px;
         border: 1px solid #ccc;
         float: left;
         margin-right: 65px;

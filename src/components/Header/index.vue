@@ -7,12 +7,13 @@
         <div class="right">
             <ul>
                 <li>
-                    <span v-if="user==null" @click="toLogin">请登录</span>
-                    <span v-if="user!=null" class="welcome">欢迎&nbsp;&nbsp;{{user.username}}</span>
+                    <span v-if="username==null" @click="toLogin">请登录</span>
+                    <span v-if="username!=null" class="welcome">欢迎&nbsp;&nbsp;{{username}}</span>
                     <em>/</em>
                 </li>
                 <li>
-                    <span @click="toRegistry">注册</span>
+                    <span v-if="username==null" @click="toRegistry">注册</span>
+                    <span v-if="username!=null" @click="toLogout">退出登录</span>
                     <em>/</em>
                 </li>
                 <li>
@@ -57,12 +58,16 @@
         name: "header-index",
         data(){
             return{
-                user:null
+                username:null,
             }
         },
         mounted() {
-
-
+            if (JSON.parse(window.sessionStorage.getItem('userInfo'))===null){
+                this.username=null;
+            }
+            else {
+                this.username=JSON.parse(window.sessionStorage.getItem('userInfo')).username;
+            }
         },
         methods:{
             toLogin(){
@@ -73,7 +78,32 @@
 
             },
             toOrder(){
-                this.$router.push('/order')
+                if (JSON.parse(window.sessionStorage.getItem('userInfo'))==null) {
+                    this.$router.push('/login')
+                }else{
+                    this.$router.push('/order')
+                }
+
+            },
+            toLogout(){
+                this.$confirm('是否确定退出?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '退出成功!'
+                    });
+                    window.sessionStorage.clear();
+                    this.username=null;
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '退出失败'
+                    });
+                });
+
             }
         }
     }

@@ -3,7 +3,7 @@
         <!-- 注册内容 -->
         <div class="register">
             <h3>注册新用户
-                <span class="go">我有账号，去 <a @click="toLogin">登陆</a>
+                <span class="go">我有账号，去 <a href="javascript:void(0)" @click="toLogin">登陆</a>
         </span>
             </h3>
             <div class="content">
@@ -12,33 +12,33 @@
                 <span ref="email" class="error-msg">请输入正确的邮箱账号</span>
             </div>
             <div class="content">
-                <label>验证码:</label>
-                <input type="text" placeholder="请输入验证码">
-                <span class="error-msg">请输入正确的验证码</span>
+                <label>用户名:</label>
+                <input type="text" @blur="checkUsername" v-model="form.username" placeholder="请输入用户名">
+                <span class="error-msg">该用户名已存在，请重新输入</span>
+                <span ref="confirmUsername" class="error-msg">请输入用户名</span>
             </div>
             <div class="content">
-                <label>用户名:</label>
-                <input type="text" placeholder="请输入用户名">
-                <span class="error-msg">该用户名已存在，请重新输入</span>
-                <span class="error-msg">请输入用户名</span>
+                <label>真实姓名:</label>
+                <input type="text" @blur="checkName" v-model="form.real_name" placeholder="请输入真实姓名">
+                <span ref="confirmName" class="error-msg">请输入姓名</span>
             </div>
             <div class="content">
                 <label>登录密码:</label>
-                <input type="text" placeholder="请输入你的登录密码">
-                <span class="error-msg">请输入密码</span>
+                <input type="password" @blur="isPassword" v-model="form.password" placeholder="请输入你的登录密码">
+                <span ref="passwordR" class="error-msg">请输入密码</span>
             </div>
             <div class="content">
                 <label>确认密码:</label>
-                <input type="text" placeholder="请输入确认密码">
-                <span class="error-msg">两次输入的密码不匹配</span>
+                <input  @blur="checkPassword" v-model="confirmPassword" type="password" placeholder="请输入确认密码">
+                <span ref="password2" class="error-msg">两次输入的密码不匹配</span>
             </div>
             <div class="controls">
-                <input name="m1" type="checkbox">
+                <input name="m1" type="checkbox" v-model="m1">
                 <span>同意协议并注册《唯品会用户协议》</span>
-                <span class="error-msg">请勾选同意用户协议</span>
+                <span ref="checkBox" class="error-msg">请勾选同意用户协议</span>
             </div>
             <div class="btn">
-                <button>完成注册</button>
+                <button @click="registry">完成注册</button>
             </div>
         </div>
 
@@ -47,12 +47,20 @@
 </template>
 
 <script>
+
     export default {
         name: 'registry-main-index',
         data(){
             return{
+                m1:'',
+                confirmPassword:'',
                 form:{
+
+                    real_name:'',
                     email:'',
+                    username:'',
+                    password:'',
+
                 }
             }
         },
@@ -66,8 +74,57 @@
                 this.$refs.email.style.display = 'none';
             }
             },
+            isPassword(){
+                if (this.form.password===null||this.form.password===''){
+                    this.$refs.passwordR.style.display='block'
+                }
+                else {
+                    this.$refs.passwordR.style.display='none'
+                }
+            },
+            checkPassword(){
+                if (this.form.password!==this.confirmPassword){
+                    this.$refs.password2.style.display='block';
+
+                }else{
+                    this.$refs.password2.style.display='none';
+                }
+
+            },
             toLogin(){
                 this.$router.push('/login')
+            },
+            registry(){
+                if (!this.m1){
+                    this.$refs.checkBox.style.display='block'
+                    return
+                }
+                this.$refs.checkBox.style.display='none'
+                this.postRequest('/user/registry',this.form).then(data=>{
+                    if (data.code===200){
+                        this.$message({
+                            message: '注册成功',
+                            type: 'success'
+                        });
+                        this.$router.push('/login')
+                    }else{
+                        this.$message.error("用户名已存在")
+                    }
+                })
+            },
+            checkName(){
+                if (this.form.real_name===null||this.form.real_name===''){
+                    this.$refs.confirmName.style.display='block'
+                }else {
+                    this.$refs.confirmName.style.display='none'
+                }
+            },
+            checkUsername(){
+                if (this.form.username===null||this.form.username===''){
+                    this.$refs.confirmUsername.style.display='block'
+                }else{
+                    this.$refs.confirmUsername.style.display='none'
+                }
             }
         }
 
@@ -157,6 +214,7 @@
         outline: none;
         width: 270px;
         height: 36px;
+        border: none;
         background: #f10180;
         color: #fff !important;
         display: inline-block;

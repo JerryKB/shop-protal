@@ -59,17 +59,15 @@
 <script>
     export default {
         name: "index",
-        props:['id'],
+        // props:['id'],
         data(){
             return{
                 products:{}
             }
         },
         mounted() {
-            this.getRequest('/product/findRequirePro/'+this.$route.query.id).then(data=>{
-                this.products=data;
-
-            })
+            console.log(this.$store.state.products)
+                this.products=this.$store.state.products
         },
         methods:{
             buy(p){

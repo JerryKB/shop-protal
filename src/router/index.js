@@ -41,6 +41,17 @@ const routes = [
   {
     path: '/product',
     component:()=>import('@/views/Product'),
+    props:true,
+    meta: {
+      show:true
+    }
+
+  }
+  ,
+  {
+    path: '/product2',
+    component:()=>import('@/views/Product2'),
+    props:true,
     meta: {
       show:true
     }
@@ -61,6 +72,7 @@ const routes = [
   {
     path: '/details',
     component:()=>import('@/views/Details'),
+    props:true,
     meta: {
       show:true
     }
@@ -74,11 +86,13 @@ const routes = [
   },
   {
 
+
     path: '/subOrder',
     component:()=>import('@/views/SubmitOrder'),
     meta: {
       show:true
-    }
+    },
+    props: true
 
   },
   {
