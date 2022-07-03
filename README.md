@@ -1,5 +1,5 @@
 # shop_protal
-
+仿唯品会前台
 ## Project setup
 ```
 npm install
